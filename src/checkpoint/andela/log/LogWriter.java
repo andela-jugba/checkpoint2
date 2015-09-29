@@ -20,26 +20,28 @@ public class LogWriter implements Runnable{
 		logBuffer = SharedBuffers.logBuffer;
 		file = new File(fileName+".txt");
 	}
+	public void writeToLog() {
+		try {
+
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			
+			FileWriter fw = new FileWriter(file, true);
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write(logBuffer.take() + "\n");
+			bw.write(logBuffer.take() + "\n");
+			bw.close();
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 	
 
 	@Override
 	public void run() {
 		while(true) {			
-
-			try {
-
-				if (!file.exists()) {
-					file.createNewFile();
-				}
-				
-				FileWriter fw = new FileWriter(file, true);
-				BufferedWriter bw = new BufferedWriter(fw);
-				bw.write(logBuffer.take() + "\n");
-				bw.write(logBuffer.take() + "\n");
-				bw.close();
-			} catch (IOException | InterruptedException e) {
-				e.printStackTrace();
-			}
+			writeToLog();
 		}
 		
 	}

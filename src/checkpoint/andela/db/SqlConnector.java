@@ -20,11 +20,6 @@ public class SqlConnector {
 		connect = null;
 		preparedStatement = null;
 		statement = null;
-		try {
-			connect = DriverManager.getConnection(DATABASE_URL, "andela_jugba", "justjosh");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public void writeReact(Reactant reaction) throws SQLException {
@@ -45,29 +40,11 @@ public class SqlConnector {
 
 	}
 
-	public void close() {
-		close();
-	}
-
 	public void trucateTable() throws SQLException {
 		statement = connect.createStatement();
 		String sql = "TRUNCATE reactions";
 		statement.executeUpdate(sql);
 
-	}
-
-	public static void setDATABASE_URL(String dATABASE_URL) {
-		DATABASE_URL = dATABASE_URL;
-	}
-
-	public void execute() {
-		try {
-			preparedStatement.executeBatch();
-			connect.commit();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 }

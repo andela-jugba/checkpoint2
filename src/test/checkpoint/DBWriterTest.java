@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import checkpoint.andela.db.DBWriter;
 import checkpoint.andela.db.SqlConnector;
-import checkpoint.andela.parser.FileParser;
 import checkpoint.andela.parser.Reactant;
 import checkpoint.andela.parser.SharedBuffers;
 
@@ -42,14 +41,6 @@ public class DBWriterTest {
 	@Test
 	public void testDBWriterExits() throws Exception{
 		DBWriter dB = new DBWriter();
-		Thread fileParser = new Thread(new FileParser("testReactions"), "FileParser Thread");
-		Thread DbThread = new Thread(new DBWriter(), "DBWriter Thread");
-		
-		DbThread.start();
-		fileParser.start();
-		System.out.println(SharedBuffers.sharedBuffer.size());
-		
-		
 		assertNotNull(dB);
 		
 	}

@@ -32,6 +32,7 @@ public class ReactionParserTest {
 
 	@Before
 	public void setUp() throws Exception {
+		SharedBuffers.sharedBuffer.clear();
 		df = new DatFileReader("testReactions");
 		sharedBuffer = SharedBuffers.getSharedBuffer();
 		reactionParser = new ReactionParser(df.getBufferedReader());
@@ -39,7 +40,6 @@ public class ReactionParserTest {
 
 	@After
 	public void tearDown() throws Exception {
-		SharedBuffers.logBuffer.clear();
 		SharedBuffers.sharedBuffer.clear();
 	}
 
@@ -48,7 +48,7 @@ public class ReactionParserTest {
 		reactionParser.process();
 		Reactant reaction = sharedBuffer.take();
 		System.out.println(sharedBuffer.size());
-		//assertEquals(reaction.get("UNIQUE-ID"), "RXN-8748");
+		assertEquals(reaction.get("UNIQUE-ID"), "RXN-8748");
 	}
 
 }
