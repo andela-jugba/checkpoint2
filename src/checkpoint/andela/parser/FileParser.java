@@ -1,9 +1,17 @@
 package checkpoint.andela.parser;
 
-public class FileParser {
+public class FileParser implements Runnable {
+	private Reader reader;
+	private DocumentProcessor documentProcessor;
 
-	public FileParser() {
-		// TODO Auto-generated constructor stub
+	public FileParser(String fileName) {
+		reader = new DatFileReader(fileName);
+		documentProcessor = new ReactionParser(reader.getBufferedReader());
+	}
+
+	@Override
+	public void run() {
+		documentProcessor.process();
 	}
 
 }
