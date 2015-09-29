@@ -31,15 +31,12 @@ public class ReactionParser implements DocumentProcessor {
 				compileReaction();
 			}
 		}
-		System.out.println("Done!");
 	}
 
 	private void compileReaction() throws InterruptedException {
 		Reactant reactant = holder;
 		holder = new Reactant();
-		
-		System.out.println("FileParser Thread  (" + reactant.getDate() + ")" + "----" + "Wrote "
-				+ reactant.get("UNIQUE-ID") + " to buffer");
+	
 		sharedBuffer.put(reactant);
 		logBuffer.put("FileParser Thread (" + reactant.getDate() + ")" + "----" + "Wrote" + reactant.get("UNIQUE-ID")
 				+ " to buffer");

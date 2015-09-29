@@ -7,8 +7,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class SharedBuffers {
 	public static BlockingQueue<String> logBuffer = new LinkedBlockingQueue<>();
 	public static BlockingQueue<Reactant> sharedBuffer = new LinkedBlockingQueue<>();
-	public SharedBuffers() {
-	}
 
 	public static BlockingQueue<String> getLogBuffer() {
 		return logBuffer;
