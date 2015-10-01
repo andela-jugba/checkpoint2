@@ -31,6 +31,8 @@ public class DBWriter implements Runnable{
 			
 			writeRecord(reaction);
 			Date date = new Date();
+			System.out.println("DBWriter Thread   (" + date.toString() + ")" + "----" + "Collected "
+					+ reaction.get("UNIQUE-ID") + " from buffer");
 			logBuffer.put("DBWriter Thread   (" + date.toString() + ")" + "----" + "Collected "
 					+ reaction.get("UNIQUE-ID") + " from buffer");		
 		}
