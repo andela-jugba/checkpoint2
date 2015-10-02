@@ -1,5 +1,6 @@
 package checkpoint.andela.db;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.concurrent.BlockingQueue;
@@ -20,26 +21,28 @@ public class DBWriter implements Runnable{
 		connector = new SqlConnector();
 	}
 	
-	private void writeReactionsToDB() throws InterruptedException, SQLException {
+	private void writeReactionsToDB() throws InterruptedException, SQLException, IOException {
 		
-		while (1000 > FileParser.getTimeToRun() + 999) {
-			Reactant reaction = sharedBuffer.take();
-			Date date = new Date();
-			logBuffer.put("DBWriter Thread   (" + date.toString() + ")" + "----" + "Collected "
-					+ reaction.get("UNIQUE-ID") + " from buffer");	
-			connector.writeReact(reaction);			
-			
-			System.out.println("DBWriter Thread   (" + date.toString() + ")" + "----" + "Collected "
-					+ reaction.get("UNIQUE-ID") + " from buffer");
+		Reactant reaction = sharedBuffer.take();
+		Date date = new Date();
+		logBuffer.put("DBWriter Thread   (" + date.toString() + ")" + "----" + "Collected "
+				+ reaction.get("UNIQUE-ID") + " from buffer");	
+		connector.writeReact(reaction);			
+		
+		System.out.println("DBWriter Thread   (" + date.toString() + ")" + "----" + "Collected "
+				+ reaction.get("UNIQUE-ID") + " from buffer");
 	
-		}
 	}
 
 	@Override
 	public void run() {
+		
 		try {
+			while(FileParser.isRunning()) {
+				writeReactionsToDB();
+			}
 			writeReactionsToDB();
-		} catch (InterruptedException | SQLException e) {
+		} catch (InterruptedException | SQLException |IOException e) {
 			e.printStackTrace();
 		}
 	}

@@ -39,10 +39,10 @@ public class LogWriter implements Runnable{
 
 	@Override
 	public void run() {
-		while(1000 > FileParser.getTimeToRun() + 999) {			
+		while(FileParser.isRunning()) {			
 			writeToLog();
 		}
-		
+		writeToLog();
 	}
 
 }

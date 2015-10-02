@@ -45,18 +45,11 @@ public class LogWriterTest {
 		assertNotNull(logWriter);
 		SharedBuffers.getLogBuffer().clear();
 	}
-	@Test
-	public void testLogWriterReads() throws Exception {
-		int num = SharedBuffers.getLogBuffer().size();
-		assertEquals(num,0);
-		reactionParser.process();
-		int numAfter = SharedBuffers.getLogBuffer().size();
-		assertEquals(numAfter,1);
-		SharedBuffers.getLogBuffer().take();
 
-		int numAfterLogging = SharedBuffers.getLogBuffer().size();
-		assertEquals(numAfterLogging,0);	
-		
+	@Test
+	public void testLogWriterThread() throws Exception{
+		Thread log = new Thread(new LogWriter("Test"), "LogWriterTest");
+		log.start();
 	}
 
 }
