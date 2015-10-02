@@ -16,14 +16,18 @@ public class SqlConnector {
 	private PreparedStatement preparedStatement = null;
 	private Statement statement;
 
-	public SqlConnector() {
+	public SqlConnector(){
 		connect = null;
 		preparedStatement = null;
 		statement = null;
+		try {
+			connect = DriverManager.getConnection(DATABASE_URL, "andela_jugba", "justjosh");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void writeReact(Reactant reaction) throws SQLException {
-		connect = DriverManager.getConnection(DATABASE_URL, "andela_jugba", "justjosh");
 		preparedStatement = connect
 				.prepareStatement("insert into  reactiondb.reactions values (?, ?, ?, ?, ? , ?, ?, ?)");
 		preparedStatement.setString(1, reaction.get("UNIQUE-ID"));

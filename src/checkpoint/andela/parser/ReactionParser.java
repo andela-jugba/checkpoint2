@@ -12,7 +12,7 @@ public class ReactionParser implements DocumentProcessor {
 	private BufferedReader bufferedReader;
 
 	private Reactant holder;
-	List<String> filter = Arrays.asList("UNIQUE-ID","TYPES","ATOM-MAPPINGS","CREDITS","EC-NUMBER","IN-PATHWAY","ORPHAN?","LEFT");
+	private List<String> filter = Arrays.asList("UNIQUE","TYPES","ATOM","CREDITS","EC","IN","ORPHAN?","LEFT");
 	
 	public ReactionParser(BufferedReader buffer) {
 		this.logBuffer = SharedBuffers.getLogBuffer();
@@ -36,22 +36,20 @@ public class ReactionParser implements DocumentProcessor {
 	private void compileReaction() throws InterruptedException {
 		Reactant reactant = holder;
 		holder = new Reactant();
-	
-		sharedBuffer.put(reactant);
-		logBuffer.put("FileParser Thread (" + reactant.getDate() + ")" + "----" + "Wrote" + reactant.get("UNIQUE-ID")
+		System.out.println("FileParser Thread (" + reactant.getDate() + ")" + "----" + "Wrote " + reactant.get("UNIQUE-ID")
 				+ " to buffer");
-
+		sharedBuffer.put(reactant);
+		logBuffer.put("FileParser Thread (" + reactant.getDate() + ")" + "----" + "Wrote " + reactant.get("UNIQUE-ID")
+				+ " to buffer");
 	}
 
 	private void lineFilter(String line) {
-		for(String match: filter) {
-			if(line.contains(match)) {
-				sliceLine(line);
-			}
-		}
+		String temp = line.replace(" ", "");
+		String s[] = temp.split("-");
+		if(filter.contains(s[0]))parseLine(line);
 	}
 	
-	private void sliceLine(String line) {
+	private void parseLine(String line) {
 		String s[] = line.split(" - ");
 		holder.put(s[0], s[1]);
 	}

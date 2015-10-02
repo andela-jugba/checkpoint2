@@ -35,7 +35,7 @@ public class DBWriterTest {
 
 	@After
 	public void tearDown() throws Exception {
-		
+		sq.trucateTable();
 	}
 
 	@Test
@@ -44,11 +44,18 @@ public class DBWriterTest {
 		assertNotNull(dB);
 		
 	}
+	@Test
+	public void testDBWriterThread() throws Exception{
+		Thread dB = new Thread(new DBWriter(), "DB");
+		dB.start();
+		sq.trucateTable();
+	}
 	
 	@Test
 	public void testSql() throws Exception {
 		Reactant r = new Reactant();
 			sq.writeReact(r);
+			sq.trucateTable();
 	}
 
 }
