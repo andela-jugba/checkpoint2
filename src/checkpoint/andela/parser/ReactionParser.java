@@ -36,19 +36,20 @@ public class ReactionParser implements DocumentProcessor {
 	private void compileReaction() throws InterruptedException {
 		Reactant reactant = holder;
 		holder = new Reactant();
-		System.out.println("FileParser Thread (" + reactant.getDate() + ")" + "----" + "Wrote" + reactant.get("UNIQUE-ID")
+		System.out.println("FileParser Thread (" + reactant.getDate() + ")" + "----" + "Wrote " + reactant.get("UNIQUE-ID")
 				+ " to buffer");
 		sharedBuffer.put(reactant);
-		logBuffer.put("FileParser Thread (" + reactant.getDate() + ")" + "----" + "Wrote" + reactant.get("UNIQUE-ID")
+		logBuffer.put("FileParser Thread (" + reactant.getDate() + ")" + "----" + "Wrote " + reactant.get("UNIQUE-ID")
 				+ " to buffer");
 	}
 
 	private void lineFilter(String line) {
-		String s[] = line.split("-");
-		if(filter.contains(s[0]))sliceLine(line);
+		String temp = line.replace(" ", "");
+		String s[] = temp.split("-");
+		if(filter.contains(s[0]))parseLine(line);
 	}
 	
-	private void sliceLine(String line) {
+	private void parseLine(String line) {
 		String s[] = line.split(" - ");
 		holder.put(s[0], s[1]);
 	}

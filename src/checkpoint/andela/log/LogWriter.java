@@ -7,20 +7,19 @@ import java.io.IOException;
 
 import java.util.concurrent.BlockingQueue;
 
+import checkpoint.andela.parser.FileParser;
 import checkpoint.andela.parser.SharedBuffers;
 
 public class LogWriter implements Runnable{
 	private BlockingQueue<String> logBuffer;
 	private File file;
 	
-	
-
-
 	public LogWriter(String fileName) {
 		logBuffer = SharedBuffers.logBuffer;
 		file = new File(fileName+".txt");
 	}
-	public void writeToLog() {
+	
+	private void writeToLog() {
 		try {
 
 			if (!file.exists()) {
@@ -30,7 +29,7 @@ public class LogWriter implements Runnable{
 			FileWriter fw = new FileWriter(file, true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.write(logBuffer.take() + "\n");
-			bw.write(logBuffer.take() + "\n");
+			
 			bw.close();
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
@@ -40,7 +39,7 @@ public class LogWriter implements Runnable{
 
 	@Override
 	public void run() {
-		while(true) {			
+		while(1000 > FileParser.getTimeToRun() + 999) {			
 			writeToLog();
 		}
 		

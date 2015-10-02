@@ -2,6 +2,7 @@ package test.checkpoint;
 
 import static org.junit.Assert.*;
 
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,7 +17,7 @@ import checkpoint.andela.parser.SharedBuffers;
 public class LogWriterTest {
 	private LogWriter logWriter;
 	private DatFileReader datFileReader;
-	private ReactionParser reactionParser; 
+	private ReactionParser reactionParser;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -45,15 +46,16 @@ public class LogWriterTest {
 		SharedBuffers.getLogBuffer().clear();
 	}
 	@Test
-	public void testLogWriterReads() {
+	public void testLogWriterReads() throws Exception {
 		int num = SharedBuffers.getLogBuffer().size();
 		assertEquals(num,0);
 		reactionParser.process();
 		int numAfter = SharedBuffers.getLogBuffer().size();
-		assertEquals(numAfter,3);
-		logWriter.writeToLog();
+		assertEquals(numAfter,1);
+		SharedBuffers.getLogBuffer().take();
+
 		int numAfterLogging = SharedBuffers.getLogBuffer().size();
-		assertEquals(numAfterLogging,1);	
+		assertEquals(numAfterLogging,0);	
 		
 	}
 

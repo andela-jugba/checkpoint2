@@ -50,7 +50,7 @@ public class FileParserTest {
 		SharedBuffers.sharedBuffer.clear();
 		reactionParser.process();
 		int numberOfReactions = SharedBuffers.getSharedBuffer().size();
-		assertEquals(numberOfReactions, 3);
+		assertEquals(numberOfReactions, 1);
 	}
 	@Test
 	public void testFileParser() {
