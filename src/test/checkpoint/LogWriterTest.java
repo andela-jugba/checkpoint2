@@ -49,7 +49,9 @@ public class LogWriterTest {
 	@Test
 	public void testLogWriterThread() throws Exception{
 		Thread log = new Thread(new LogWriter("Test"), "LogWriterTest");
+		reactionParser.process();
 		log.start();
+		assertEquals(SharedBuffers.getLogBuffer().size() , 1);
 	}
 
 }

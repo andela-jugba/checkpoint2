@@ -2,7 +2,6 @@ package test.checkpoint;
 
 import static org.junit.Assert.*;
 
-import java.util.concurrent.BlockingQueue;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -12,12 +11,13 @@ import org.junit.Test;
 
 import checkpoint.andela.parser.DatFileReader;
 import checkpoint.andela.parser.Reactant;
+import checkpoint.andela.parser.ReactantBuffer;
 import checkpoint.andela.parser.ReactionParser;
 import checkpoint.andela.parser.SharedBuffers;
 
 public class ReactionParserTest {
 	private DatFileReader df;
-	private BlockingQueue<Reactant> sharedBuffer;
+	private ReactantBuffer sharedBuffer;
 	private ReactionParser reactionParser;
 
 	@BeforeClass
@@ -46,7 +46,7 @@ public class ReactionParserTest {
 	@Test
 	public void testLineFilter() throws Exception {
 		reactionParser.process();
-		Reactant reaction = sharedBuffer.take();
+		Reactant reaction = sharedBuffer.takeReactionFromBuffer();
 		System.out.println(sharedBuffer.size());
 		assertEquals(reaction.get("UNIQUE-ID"), "RXN-8748");
 	}
