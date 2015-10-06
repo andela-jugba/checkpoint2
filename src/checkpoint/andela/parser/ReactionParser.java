@@ -4,11 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
 
 public class ReactionParser implements DocumentProcessor {
-	private BlockingQueue<Reactant> sharedBuffer;
-	private BlockingQueue<String> logBuffer;
+	private ReactantBuffer sharedBuffer;
+	private LogBuffer logBuffer;
 	private BufferedReader bufferedReader;
 
 	private Reactant holder;
@@ -38,8 +37,8 @@ public class ReactionParser implements DocumentProcessor {
 		holder = new Reactant();
 		System.out.println("FileParser Thread (" + reactant.getDate() + ")" + "----" + "Wrote " + reactant.get("UNIQUE-ID")
 				+ " to buffer");
-		sharedBuffer.put(reactant);
-		logBuffer.put("FileParser Thread (" + reactant.getDate() + ")" + "----" + "Wrote " + reactant.get("UNIQUE-ID")
+		sharedBuffer.addReactionToBuffer(reactant);
+		logBuffer.addToLogBuffer("FileParser Thread (" + reactant.getDate() + ")" + "----" + "Wrote " + reactant.get("UNIQUE-ID")
 				+ " to buffer");
 	}
 
