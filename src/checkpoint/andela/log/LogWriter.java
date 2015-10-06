@@ -5,13 +5,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import java.util.concurrent.BlockingQueue;
-
 import checkpoint.andela.parser.FileParser;
+import checkpoint.andela.parser.LogBuffer;
 import checkpoint.andela.parser.SharedBuffers;
 
 public class LogWriter implements Runnable{
-	private BlockingQueue<String> logBuffer;
+	private LogBuffer logBuffer;
 	private File file;
 	
 	public LogWriter(String fileName) {
@@ -21,14 +20,13 @@ public class LogWriter implements Runnable{
 	
 	private void writeToLog() {
 		try {
-
 			if (!file.exists()) {
 				file.createNewFile();
 			}
 			
 			FileWriter fw = new FileWriter(file, true);
 			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(logBuffer.take() + "\n");
+			bw.write(logBuffer.takeFromLogBuffer() + "\n");
 			
 			bw.close();
 		} catch (IOException | InterruptedException e) {
