@@ -1,18 +1,14 @@
 package checkpoint.andela.parser;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-
-
 public class SharedBuffers {
-	public static BlockingQueue<String> logBuffer = new LinkedBlockingQueue<>(1);
-	public static BlockingQueue<Reactant> sharedBuffer = new LinkedBlockingQueue<>(1);
+	public static LogBuffer logBuffer = new LogBuffer();
+	public static ReactantBuffer sharedBuffer = new ReactantBuffer();
 
-	public static BlockingQueue<String> getLogBuffer() {
+	public static LogBuffer getLogBuffer() {
 		return logBuffer;
 	}
 	
-	public static BlockingQueue<Reactant> getSharedBuffer() {
+	public static ReactantBuffer getSharedBuffer() {
 		return sharedBuffer;
 	}	
 
