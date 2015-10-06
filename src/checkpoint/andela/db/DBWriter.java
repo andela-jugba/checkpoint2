@@ -3,16 +3,17 @@ package checkpoint.andela.db;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.concurrent.BlockingQueue;
 
 import checkpoint.andela.parser.FileParser;
+import checkpoint.andela.parser.LogBuffer;
 import checkpoint.andela.parser.Reactant;
+import checkpoint.andela.parser.ReactantBuffer;
 import checkpoint.andela.parser.SharedBuffers;
 
 public class DBWriter implements Runnable{
 
-	private BlockingQueue<Reactant> sharedBuffer;
-	private BlockingQueue<String> logBuffer;
+	private ReactantBuffer sharedBuffer;
+	private LogBuffer logBuffer;
 	private SqlConnector connector;
 	
 	public DBWriter() {
@@ -23,9 +24,9 @@ public class DBWriter implements Runnable{
 	
 	private void writeReactionsToDB() throws InterruptedException, SQLException, IOException {
 		
-		Reactant reaction = sharedBuffer.take();
+		Reactant reaction = sharedBuffer.takeReactionFromBuffer();
 		Date date = new Date();
-		logBuffer.put("DBWriter Thread   (" + date.toString() + ")" + "----" + "Collected "
+		logBuffer.addToLogBuffer("DBWriter Thread   (" + date.toString() + ")" + "----" + "Collected "
 				+ reaction.get("UNIQUE-ID") + " from buffer");	
 		connector.writeReact(reaction);			
 		
