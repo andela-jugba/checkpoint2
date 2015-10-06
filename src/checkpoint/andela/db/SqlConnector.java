@@ -10,7 +10,7 @@ import checkpoint.andela.parser.Reactant;
 
 public class SqlConnector {
 
-	static String DATABASE_URL = "jdbc:mysql://localhost/reactiondb";
+	static String DATABASE_URL = Constants.DATABASEURL;
 
 	private Connection connect;
 	private PreparedStatement preparedStatement = null;
@@ -21,7 +21,7 @@ public class SqlConnector {
 		preparedStatement = null;
 		statement = null;
 		try {
-			connect = DriverManager.getConnection(DATABASE_URL, "andela_jugba", "justjosh");
+			connect = DriverManager.getConnection(DATABASE_URL, Constants.USERNAME, Constants.PASSWORD);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
