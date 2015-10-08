@@ -5,12 +5,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import checkpoint.andela.buffer.Buffer;
 import checkpoint.andela.parser.FileParser;
-import checkpoint.andela.parser.LogBuffer;
 import checkpoint.andela.parser.SharedBuffers;
 
 public class LogWriter implements Runnable{
-	private LogBuffer logBuffer;
+	private Buffer logBuffer;
 	private File file;
 	
 	public LogWriter(String fileName) {
@@ -26,7 +26,7 @@ public class LogWriter implements Runnable{
 			
 			FileWriter fw = new FileWriter(file, true);
 			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(logBuffer.takeFromLogBuffer() + "\n");
+			bw.write(logBuffer.takeFromBuffer() + "\n");
 			
 			bw.close();
 		} catch (IOException | InterruptedException e) {

@@ -4,16 +4,15 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
 
+import checkpoint.andela.buffer.Buffer;
 import checkpoint.andela.parser.FileParser;
-import checkpoint.andela.parser.LogBuffer;
-import checkpoint.andela.parser.Reactant;
-import checkpoint.andela.parser.ReactantBuffer;
 import checkpoint.andela.parser.SharedBuffers;
+import checkpoint.andela.parser.document.models.Reactant;
 
 public class DBWriter implements Runnable{
 
-	private ReactantBuffer sharedBuffer;
-	private LogBuffer logBuffer;
+	private Buffer sharedBuffer;
+	private Buffer logBuffer;
 	private SqlConnector connector;
 	
 	public DBWriter() {
@@ -24,9 +23,9 @@ public class DBWriter implements Runnable{
 	
 	private void writeReactionsToDB() throws InterruptedException, SQLException, IOException {
 		
-		Reactant reaction = sharedBuffer.takeReactionFromBuffer();
+		Reactant reaction = (Reactant) sharedBuffer.takeFromBuffer();
 		Date date = new Date();
-		logBuffer.addToLogBuffer("DBWriter Thread   (" + date.toString() + ")" + "----" + "Collected "
+		logBuffer.addToBuffer("DBWriter Thread   (" + date.toString() + ")" + "----" + "Collected "
 				+ reaction.get("UNIQUE-ID") + " from buffer");	
 		connector.writeReact(reaction);			
 		

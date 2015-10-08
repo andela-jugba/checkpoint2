@@ -11,8 +11,8 @@ import org.junit.Test;
 
 import checkpoint.andela.db.DBWriter;
 import checkpoint.andela.db.SqlConnector;
-import checkpoint.andela.parser.Reactant;
 import checkpoint.andela.parser.SharedBuffers;
+import checkpoint.andela.parser.document.models.Reactant;
 
 public class DBWriterTest {
 	
