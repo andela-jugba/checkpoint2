@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import checkpoint.andela.parser.Reactant;
+import checkpoint.andela.parser.document.models.Reactant;
 
 public class SqlConnector {
 

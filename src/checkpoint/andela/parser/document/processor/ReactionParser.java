@@ -1,13 +1,17 @@
-package checkpoint.andela.parser;
+package checkpoint.andela.parser.document.processor;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import checkpoint.andela.buffer.Buffer;
+import checkpoint.andela.parser.SharedBuffers;
+import checkpoint.andela.parser.document.models.Reactant;
+
 public class ReactionParser implements DocumentProcessor {
-	private ReactantBuffer sharedBuffer;
-	private LogBuffer logBuffer;
+	private Buffer sharedBuffer;
+	private Buffer logBuffer;
 	private BufferedReader bufferedReader;
 
 	private Reactant holder;
@@ -37,8 +41,8 @@ public class ReactionParser implements DocumentProcessor {
 		holder = new Reactant();
 		System.out.println("FileParser Thread (" + reactant.getDate() + ")" + "----" + "Wrote " + reactant.get("UNIQUE-ID")
 				+ " to buffer");
-		sharedBuffer.addReactionToBuffer(reactant);
-		logBuffer.addToLogBuffer("FileParser Thread (" + reactant.getDate() + ")" + "----" + "Wrote " + reactant.get("UNIQUE-ID")
+		sharedBuffer.addToBuffer(reactant);
+		logBuffer.addToBuffer("FileParser Thread (" + reactant.getDate() + ")" + "----" + "Wrote " + reactant.get("UNIQUE-ID")
 				+ " to buffer");
 	}
 

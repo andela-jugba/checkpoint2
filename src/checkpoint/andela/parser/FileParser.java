@@ -1,5 +1,9 @@
 package checkpoint.andela.parser;
 
+import checkpoint.andela.parser.document.processor.DocumentProcessor;
+import checkpoint.andela.parser.document.processor.ReactionParser;
+import checkpoint.andela.parser.reader.DatFileReader;
+import checkpoint.andela.parser.reader.Reader;
 
 public class FileParser implements Runnable {
 	private Reader reader;

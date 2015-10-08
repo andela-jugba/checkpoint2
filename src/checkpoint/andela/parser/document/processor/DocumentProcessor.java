@@ -1,4 +1,4 @@
-package checkpoint.andela.parser;
+package checkpoint.andela.parser.document.processor;
 
 public interface DocumentProcessor {
 

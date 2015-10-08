@@ -1,4 +1,4 @@
-package checkpoint.andela.parser;
+package checkpoint.andela.parser.document.models;
 
 import java.util.Date;
 import java.util.HashMap;

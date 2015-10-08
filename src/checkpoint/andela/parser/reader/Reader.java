@@ -1,4 +1,4 @@
-package checkpoint.andela.parser;
+package checkpoint.andela.parser.reader;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

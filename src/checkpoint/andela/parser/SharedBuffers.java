@@ -1,14 +1,16 @@
 package checkpoint.andela.parser;
 
-public class SharedBuffers {
-	public static LogBuffer logBuffer = new LogBuffer();
-	public static ReactantBuffer sharedBuffer = new ReactantBuffer();
+import checkpoint.andela.buffer.Buffer;
 
-	public static LogBuffer getLogBuffer() {
+public class SharedBuffers {
+	public static Buffer logBuffer = new Buffer();
+	public static Buffer sharedBuffer = new Buffer();
+
+	public static Buffer getLogBuffer() {
 		return logBuffer;
 	}
 	
-	public static ReactantBuffer getSharedBuffer() {
+	public static Buffer getSharedBuffer() {
 		return sharedBuffer;
 	}	
 

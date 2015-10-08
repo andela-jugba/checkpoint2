@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import checkpoint.andela.parser.DatFileReader;
+import checkpoint.andela.parser.reader.DatFileReader;
 
 public class DatFileReaderTest {
 	private BufferedReader br;

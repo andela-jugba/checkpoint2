@@ -10,9 +10,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import checkpoint.andela.log.LogWriter;
-import checkpoint.andela.parser.DatFileReader;
-import checkpoint.andela.parser.ReactionParser;
 import checkpoint.andela.parser.SharedBuffers;
+import checkpoint.andela.parser.document.processor.ReactionParser;
+import checkpoint.andela.parser.reader.DatFileReader;
 
 public class LogWriterTest {
 	private LogWriter logWriter;
